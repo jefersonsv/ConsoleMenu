@@ -37,7 +37,6 @@ namespace ConsoleMenu
                 lst.Add(new MenuItem(item, linha + topOffset, 0));
             }
 
-
             //this will resise the console if the amount of elements in the list are too big
             if ((inArray.Length) > Console.WindowHeight)
             {
@@ -49,36 +48,18 @@ namespace ConsoleMenu
              * Drawing phase
              * */
             while (!loopComplete)
-            {//This for loop prints the array out
-             /*
-             for (int i = 0; i < inArray.Length; i++)
-             {
-                 if (i == selectedItem)
-                 {//This section is what highlights the selected item
-                     Console.BackgroundColor = ConsoleColor.Gray;
-                     Console.ForegroundColor = ConsoleColor.Black;
-                     Console.WriteLine(inArray[i]);
-                     Console.ResetColor();
-                 }
-                 else
-                 {//this section is what prints unselected items
-                     Console.WriteLine(inArray[i]);
-                 }
-             }
-             */
-
+            {
                 foreach (var iii in lst)
                 {
                     if (iii.Legend == inArray[selectedItem])
-                    {//This section is what highlights the selected item
+                    {
                         iii.PrintSelected();
                     }
                     else
-                    {//this section is what prints unselected items
+                    {
                         iii.PrintNormal();
                     }
                 }
-
 
                 bottomOffset = Console.CursorTop;
 
@@ -89,17 +70,10 @@ namespace ConsoleMenu
                 // Aguarda uma ação
                 NativeMethods.ReadConsoleInput(handle, ref record, 1, ref recordLen);
 
-
                 switch (record.EventType)
                 {
                     case NativeMethods.MOUSE_EVENT:
                         {
-                            // coluna
-                            /*if (record.MouseEvent.dwMousePosition.X == topOffset)
-                            {
-
-                            }*/
-
                             int idx = 0;
                             foreach (var item in lst)
                             {
@@ -108,12 +82,6 @@ namespace ConsoleMenu
                                     selectedItem = idx;
                                     break;
                                 }
-                                //else
-                                //{
-                                //    Console.SetCursorPosition(10, 10);
-                                //    Console.WriteLine(record.MouseEvent.dwMousePosition.Y + ", " + record.MouseEvent.dwMousePosition.X + "    fora de: " + item.InitialColumnY + ", " + item.FinalColumnY + "    ");
-                                //    Console.WriteLine(record.MouseEvent.dwMousePosition.Y + ", " + record.MouseEvent.dwMousePosition.X + "    fora de: " + item.InitialLineX + ", " + item.FinalLineX + "    ");
-                                //}
                                 idx++;
                             }
 
@@ -128,12 +96,6 @@ namespace ConsoleMenu
                                         loopComplete = true;
                                         break;
                                     }
-                                    //else
-                                    //{
-                                    //    Console.SetCursorPosition(10, 10);
-                                    //    Console.WriteLine(record.MouseEvent.dwMousePosition.Y + ", " + record.MouseEvent.dwMousePosition.X + "    fora de: " + item.InitialColumnY + ", " + item.FinalColumnY + "    ");
-                                    //    Console.WriteLine(record.MouseEvent.dwMousePosition.Y + ", " + record.MouseEvent.dwMousePosition.X + "    fora de: " + item.InitialLineX + ", " + item.FinalLineX + "    ");
-                                    //}
                                     idx++;
                                 }
                                 mouseDown = false;
@@ -147,7 +109,6 @@ namespace ConsoleMenu
                                 }
                             }
 
-
                             /*
                             Console.WriteLine("Mouse event");
                             Console.WriteLine(string.Format("    X ...............:   {0,4:0}  ", record.MouseEvent.dwMousePosition.X));
@@ -156,9 +117,6 @@ namespace ConsoleMenu
                             Console.WriteLine(string.Format("    dwControlKeyState: 0x{0:X4}  ", record.MouseEvent.dwControlKeyState));
                             Console.WriteLine(string.Format("    dwEventFlags ....: 0x{0:X4}  ", record.MouseEvent.dwEventFlags));
                             */
-
-                            //Console.SetCursorPosition(10, 10);
-                            //Console.WriteLine(record.MouseEvent.dwMousePosition.Y + ", " + record.MouseEvent.dwMousePosition.X + "    ");
                         }
                         break;
 
