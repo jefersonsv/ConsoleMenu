@@ -10,7 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F20B2B36-8D73-465E-A8DC-25ACB6C9BB2C}"
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
+		LICENSE = LICENSE
 		nuget\Package.nuspec = nuget\Package.nuspec
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
