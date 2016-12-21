@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="MenuItem.cs" />

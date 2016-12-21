@@ -8,15 +8,11 @@ namespace ConsoleMenu
 {
     internal class MenuItem
     {
-        public string Legend { get; }
-        public int InitialLineX { get; }
-        public int FinalLineX { get; }
+        private Configuration config;
 
-        public int InitialColumnY { get; }
-        public int FinalColumnY { get; }
-
-        public MenuItem(string legend, int line, int column)
+        public MenuItem(Configuration config, string legend, int line, int column)
         {
+            this.config = config;
             this.Legend = legend;
             this.InitialLineX = line;
             this.FinalLineX = line;
@@ -24,28 +20,35 @@ namespace ConsoleMenu
             this.FinalColumnY = column + legend.Length;
         }
 
+        public int FinalColumnY { get; }
+        public int FinalLineX { get; }
+        public int InitialColumnY { get; }
+        public int InitialLineX { get; }
+        public string Legend { get; }
+
+        public bool IsInside(int line, int column)
+        {
+            bool lineIn = this.InitialLineX <= line && line <= this.FinalLineX;
+            bool columnIn = this.InitialColumnY <= column && column <= this.FinalColumnY;
+            return lineIn && columnIn;
+        }
+
         public void PrintNormal()
         {
-            Console.ResetColor();
+            Console.BackgroundColor = this.config.NormalAppearence.BackgroundColor;
+            Console.ForegroundColor = this.config.NormalAppearence.ForegroundColor;
             Console.SetCursorPosition(this.InitialColumnY, this.InitialLineX);
             Console.WriteLine(this.Legend);
+            Console.ResetColor();
         }
 
         public void PrintSelected()
         {
-            Console.BackgroundColor = ConsoleColor.Gray;
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = this.config.SelectedAppearence.BackgroundColor;
+            Console.ForegroundColor = this.config.SelectedAppearence.ForegroundColor;
             Console.SetCursorPosition(this.InitialColumnY, this.InitialLineX);
             Console.Write(this.Legend);
             Console.ResetColor();
-        }
-
-        public bool IsInside(int line, int column)
-        {
-
-            bool lineIn = this.InitialLineX <= line && line <= this.FinalLineX;
-            bool columnIn = this.InitialColumnY <= column && column <= this.FinalColumnY;
-            return lineIn && columnIn;
         }
     }
 }

@@ -1,16 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleMenu
 {
     public class Menu
     {
-        public static int Render(string[] inArray)
+        private List<object> inArray;
+
+        public Menu()
         {
-            //Console.CursorVisible = false;
+            Config = new ConsoleMenu.Configuration();
+        }
+
+        public Menu(string name)
+        {
+            this.Name = name;
+            Config = new ConsoleMenu.Configuration();
+        }
+
+        public Configuration Config { get; set; }
+        public string Name { get; private set; }
+        //public void AddItems(string[] inArray)
+        //{
+        //    this.inArray = inArray;
+        //}
+
+        //public void AddItems<T>(IList<T> items)
+        //{
+        //     // items.Cast<object>(); //items.Select(o => o.ToString()).ToArray();
+        //}
+
+        public T Render<T>(IList<T> items)
+        {
+            inArray = items.Cast<object>().ToList();
+
+            if (inArray == null)
+                throw new Exception("Anyone items has not been added");
+
             Console.CursorVisible = false;
             var handle = NativeMethods.GetStdHandle(NativeMethods.STD_INPUT_HANDLE);
             int mode = 0;
@@ -34,11 +61,11 @@ namespace ConsoleMenu
             foreach (var item in inArray)
             {
                 linha++;
-                lst.Add(new MenuItem(item, linha + topOffset, 0));
+                lst.Add(new MenuItem(this.Config, item.ToString(), linha + topOffset, 0));
             }
 
             //this will resise the console if the amount of elements in the list are too big
-            if ((inArray.Length) > Console.WindowHeight)
+            if ((inArray.Count) > Console.WindowHeight)
             {
                 throw new Exception("Too many items in the array to display");
             }
@@ -51,7 +78,7 @@ namespace ConsoleMenu
             {
                 foreach (var iii in lst)
                 {
-                    if (iii.Legend == inArray[selectedItem])
+                    if (iii.Legend.ToString() == inArray[selectedItem].ToString())
                     {
                         iii.PrintSelected();
                     }
@@ -125,11 +152,8 @@ namespace ConsoleMenu
                             kb = new ConsoleKeyInfo();
                             var inj = Convert.ToInt32(record.KeyEvent.wVirtualKeyCode);
 
-
                             if (record.KeyEvent.bKeyDown)
                             {
-
-
                                 switch (inj.ToString())
                                 {
                                     case "40":
@@ -156,12 +180,12 @@ namespace ConsoleMenu
                                         }
                                         else
                                         {
-                                            selectedItem = (inArray.Length - 1);
+                                            selectedItem = (inArray.Count - 1);
                                         }
                                         break;
 
                                     case ConsoleKey.DownArrow:
-                                        if (selectedItem < (inArray.Length - 1))
+                                        if (selectedItem < (inArray.Count - 1))
                                         {
                                             selectedItem++;
                                         }
@@ -177,7 +201,6 @@ namespace ConsoleMenu
                                 }
 
                                 Console.SetCursorPosition(15, 15);
-
                             }
                             /*
                             Console.WriteLine("Key event  ");
@@ -192,7 +215,6 @@ namespace ConsoleMenu
                         break;
                 }
 
-
                 //Reset the cursor to the top of the screen
                 Console.SetCursorPosition(0, topOffset);
             }
@@ -200,8 +222,18 @@ namespace ConsoleMenu
             Console.SetCursorPosition(0, bottomOffset);
 
             //Console.CursorVisible = true;
-            return selectedItem;
+            return (T)this.inArray[selectedItem];
         }
 
+        //public T Render<T>()
+        //{
+        //    var idx = Render();
+        //    return (T)inArray[idx];
+        //}
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

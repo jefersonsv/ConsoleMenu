@@ -6,17 +6,40 @@ using System.Threading.Tasks;
 
 namespace ConsoleMenu.Sample
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            var items = new string[5] { "Blue", "Yellow", "Black", "Brown", "White" };
+            var coloredMenu = new Menu("Colored");
+            coloredMenu.Config.SelectedAppearence.ForegroundColor = ConsoleColor.Red;
+            coloredMenu.Config.SelectedAppearence.BackgroundColor = ConsoleColor.DarkGray;
 
-            Console.WriteLine("Select a color");
-            var selectedIndex = Menu.Render(items);
+            var menuItems = new List<Menu>();
+            menuItems.Add(new Menu("Standard"));
+            menuItems.Add(coloredMenu);
 
-            Console.WriteLine();
-            Console.WriteLine($"{items[selectedIndex]} is a beautiful color");
+            var menu = new Menu();
+            var choice = menu.Render(menuItems);
+
+            switch (choice.Name)
+            {
+                case "Standard":
+                    var standardItems = new string[] { "Option 1", "Option 2", "Option 3" };
+                    choice.Render(standardItems);
+                    break;
+
+                case "Colored":
+                    var coloredItems = System.Enum.GetNames(typeof(ConsoleColor));
+                    Console.WriteLine("Select a color");
+                    var secondSelected = choice.Render(coloredItems);
+                    Console.WriteLine();
+                    Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), secondSelected);
+                    Console.Write($"{secondSelected}");
+                    Console.ResetColor();
+                    Console.WriteLine(" is a beautiful color.");
+                    break;
+            }
+
             Console.WriteLine("Press any key to exit");
             Console.Read();
         }
