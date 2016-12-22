@@ -1,3 +1,6 @@
+![ConsoleMenu](http://www.freeiconspng.com/uploads/menu-icon-4.png)
+===================================
+
 [![Build Status](https://travis-ci.org/jefersonsv/ConsoleMenu.svg?branch=master)](https://travis-ci.org/jefersonsv/ConsoleMenu)
 [![Build status](https://ci.appveyor.com/api/projects/status/69ittx88i9d94g6f?svg=true)](https://ci.appveyor.com/project/jefersonsv/consolemenu)
 [![NuGet](https://img.shields.io/nuget/v/ConsoleMenu-choice.svg)](https://www.nuget.org/packages/ConsoleMenu-choice/)
@@ -9,4 +12,29 @@ Console menu system with keyborad arrows and mouse selection
 
 # Features
 * Can use up and down arrows
-* Can use mouse move to hightlight and click UP do selection
+* Can use mouse move to hightlight and click
+* Setup forecolor and backcolor of items
+* Input a IEnumerable<T> of items and the components will the select T
+
+# Nuget packages
+https://www.nuget.org/packages/ConsoleMenu-choice/
+
+### Contributing
+
+If you can, please contribute by reporting issues, discussing ideas, or submitting pull requests with patches and new features. We do our best to respond to all issues and pull requests within a day or two.
+
+## Usage
+var items = new string[] { "Option 1", "Option 2", "Option 3" };
+var choice = new Menu().Render(items);
+
+## Than
+Thanks for all :smile:
+
+### Contributors
+[Travis CI](https://travis-ci.org/)
+[Appveyor](https://www.appveyor.com/)
+[NuGet](https://www.nuget.org)
+[Coveralls](https://coveralls.io)
+[Open Source Initiative](https://opensource.org/)  
+[Emoji](http://www.webpagefx.com/tools/emoji-cheat-sheet/)
+[Myself](https://br.linkedin.com/in/jefersontenorio)
