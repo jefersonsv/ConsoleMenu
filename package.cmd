@@ -1,4 +1,6 @@
-REM nuget\nuget.exe update -self
+ECHO OFF
+REM http://docs.nuget.org/ndocs/tools/nuget.exe-cli-reference
+nuget\nuget.exe update -self
 
 if not exist nuget\package mkdir nuget\package
 if not exist nuget\package mkdir nuget\package
