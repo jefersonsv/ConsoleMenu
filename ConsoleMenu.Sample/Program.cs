@@ -34,7 +34,7 @@ namespace ConsoleMenu.Sample
                     var secondSelected = choice.Render(coloredItems);
                     Console.WriteLine();
                     Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), secondSelected);
-                    Console.Write($"{secondSelected}");
+                    Console.Write(secondSelected);
                     Console.ResetColor();
                     Console.WriteLine(" is a beautiful color.");
                     break;

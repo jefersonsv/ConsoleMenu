@@ -20,11 +20,11 @@ namespace ConsoleMenu
             this.FinalColumnY = column + legend.Length;
         }
 
-        public int FinalColumnY { get; }
-        public int FinalLineX { get; }
-        public int InitialColumnY { get; }
-        public int InitialLineX { get; }
-        public string Legend { get; }
+        public int FinalColumnY { get; private set; }
+        public int FinalLineX { get; private set; }
+        public int InitialColumnY { get; private set; }
+        public int InitialLineX { get; private set; }
+        public string Legend { get; private set; }
 
         public bool IsInside(int line, int column)
         {
