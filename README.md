@@ -9,8 +9,7 @@ Console menu system with keyborad arrows and mouse selection
 * Can use up and down arrows
 * Can use mouse move to hightlight and click
 * Setup forecolor and backcolor of items
-* Input a ``` C# IEnumerable<T>
-  ``` of items and the components will the select ``` C# IEnumerable<T>```
+* Input a ```IEnumerable<T>``` of items and the components will the select ```IEnumerable<T>```
 
 ## Nuget packages
 https://www.nuget.org/packages/ConsoleMenu-choice/
