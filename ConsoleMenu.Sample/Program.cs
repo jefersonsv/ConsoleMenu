@@ -41,7 +41,6 @@ namespace ConsoleMenu.Sample
             });
 
             var actionMenu = new Menu("ActionMenu");
-            actionMenu.Config.PadRightItems = true;
             var act = actionMenu.Render(i);
             act.Start();
 

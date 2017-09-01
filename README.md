@@ -16,10 +16,38 @@ https://www.nuget.org/packages/ConsoleMenu-choice/
 ## Contributing
 If you can, please contribute by reporting issues, discussing ideas, or submitting pull requests with patches and new features. We do our best to respond to all issues and pull requests within a day or two.
 ## Usage
+Simple usage
 ``` C#
-var items = new string[] { "Option 1", "Option 2", "Option 3" };
-var choice = new Menu().Render(items);
+var choice = new Menu().Render(new string[] { "Option 1", "Option 2", "Option 3" });
 ```
+
+Generics with action usage
+``` C#
+List<MenuItem> i = new List<MenuItem>();
+i.Add(new MenuItem()
+{
+    Caption = "Blue item",
+    Start = (Action)(() =>
+    {
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine("blue chose option");
+    })
+});
+i.Add(new MenuItem()
+{
+    Caption = "Yellow item",
+    Start = (Action)(() =>
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("yellow chose option");
+    })
+});
+
+var actionMenu = new Menu("ActionMenu");
+var act = actionMenu.Render(i);
+act.Start();
+```
+
 ## Thanks to
 - [Travis CI](https://travis-ci.org/)
 - [Appveyor](https://www.appveyor.com/)
