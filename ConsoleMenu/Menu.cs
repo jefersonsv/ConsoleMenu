@@ -21,17 +21,8 @@ namespace ConsoleMenu
 
         public Configuration Config { get; set; }
         public string Name { get; private set; }
-        //public void AddItems(string[] inArray)
-        //{
-        //    this.inArray = inArray;
-        //}
 
-        //public void AddItems<T>(IList<T> items)
-        //{
-        //     // items.Cast<object>(); //items.Select(o => o.ToString()).ToArray();
-        //}
-
-        public T Render<T>(IList<T> items)
+        public T Render<T>(IEnumerable<T> items)
         {
             inArray = items.Cast<object>().ToList();
 
@@ -56,12 +47,21 @@ namespace ConsoleMenu
             int selectedItem = 0;
             ConsoleKeyInfo kb;
 
+            int? maxLenghtRight = null;
+            if (this.Config.PadRightItems)
+            {
+                maxLenghtRight = inArray.Select(s => s.ToString().Length).Max();
+            }
+
+            if (this.Config == null)
+                this.Config = new Configuration();
+
             List<MenuItem> lst = new List<MenuItem>();
             var linha = 0;
             foreach (var item in inArray)
             {
+                lst.Add(new MenuItem(this.Config, item.ToString(), linha + topOffset, 0, maxLenghtRight));
                 linha++;
-                lst.Add(new MenuItem(this.Config, item.ToString(), linha + topOffset, 0));
             }
 
             //this will resise the console if the amount of elements in the list are too big
@@ -78,7 +78,7 @@ namespace ConsoleMenu
             {
                 foreach (var iii in lst)
                 {
-                    if (iii.Legend.ToString() == inArray[selectedItem].ToString())
+                    if (iii.Legend.ToString().TrimEnd() == inArray[selectedItem].ToString().TrimEnd())
                     {
                         iii.PrintSelected();
                     }
@@ -218,6 +218,7 @@ namespace ConsoleMenu
                 //Reset the cursor to the top of the screen
                 Console.SetCursorPosition(0, topOffset);
             }
+
             //set the cursor just after the menu so that the program can continue after the menu
             Console.SetCursorPosition(0, bottomOffset);
 

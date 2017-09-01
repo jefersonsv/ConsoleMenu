@@ -8,8 +8,43 @@ namespace ConsoleMenu.Sample
 {
     internal class Program
     {
+        public class MenuItem
+        {
+            public string Caption { get; set; }
+            public Action Start { get; set; }
+            public override string ToString()
+            {
+                return this.Caption.ToString();
+            }
+        }
+
         private static void Main(string[] args)
         {
+            List<MenuItem> i = new List<MenuItem>();
+            i.Add(new MenuItem()
+            {
+                Caption = "Blue item",
+                Start = (Action)(() =>
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("blue chose option");
+                })
+            });
+            i.Add(new MenuItem()
+            {
+                Caption = "Yellow item",
+                Start = (Action)(() =>
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("yellow chose option");
+                })
+            });
+
+            var actionMenu = new Menu("ActionMenu");
+            actionMenu.Config.PadRightItems = true;
+            var act = actionMenu.Render(i);
+            act.Start();
+
             var coloredMenu = new Menu("Colored");
             coloredMenu.Config.SelectedAppearence.ForegroundColor = ConsoleColor.Red;
             coloredMenu.Config.SelectedAppearence.BackgroundColor = ConsoleColor.DarkGray;
@@ -32,7 +67,6 @@ namespace ConsoleMenu.Sample
                     var coloredItems = System.Enum.GetNames(typeof(ConsoleColor));
                     Console.WriteLine("Select a color");
                     var secondSelected = choice.Render(coloredItems);
-                    Console.WriteLine();
                     Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), secondSelected);
                     Console.Write(secondSelected);
                     Console.ResetColor();

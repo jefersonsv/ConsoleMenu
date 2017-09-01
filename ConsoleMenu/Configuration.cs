@@ -16,6 +16,7 @@ namespace ConsoleMenu
 
         public NormalColor NormalAppearence { get; set; }
         public SelectedColor SelectedAppearence { get; set; }
+        public bool PadRightItems { get; set; }
 
         public class NormalColor
         {

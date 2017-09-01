@@ -10,9 +10,12 @@ namespace ConsoleMenu
     {
         private Configuration config;
 
-        public MenuItem(Configuration config, string legend, int line, int column)
+        public MenuItem(Configuration config, string legend, int line, int column, int? maxLenghtRight)
         {
             this.config = config;
+            if (config.PadRightItems && maxLenghtRight.HasValue)
+                legend = legend.PadRight(maxLenghtRight.Value, ' ');
+
             this.Legend = legend;
             this.InitialLineX = line;
             this.FinalLineX = line;
@@ -47,7 +50,7 @@ namespace ConsoleMenu
             Console.BackgroundColor = this.config.SelectedAppearence.BackgroundColor;
             Console.ForegroundColor = this.config.SelectedAppearence.ForegroundColor;
             Console.SetCursorPosition(this.InitialColumnY, this.InitialLineX);
-            Console.Write(this.Legend);
+            Console.WriteLine(this.Legend);
             Console.ResetColor();
         }
     }
