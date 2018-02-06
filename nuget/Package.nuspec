@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ConsoleMenu-choice</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <authors>Jeferson Tenorio</authors>
     <owners></owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Console menu system with keyborad arrows and mouse selection</description>
     <releaseNotes>Initial version</releaseNotes>
-    <copyright>Copyright 2016</copyright>
-    <tags>console menu prompt</tags>
+    <copyright>Copyright 2017</copyright>
+    <tags>console menu prompt consolemenu choice</tags>
   </metadata>
 </package>
